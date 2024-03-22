@@ -17,7 +17,7 @@ namespace MedLab
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Laboratorians());
+            Application.Run(new Patients());
         }
     }
 }

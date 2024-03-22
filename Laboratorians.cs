@@ -15,10 +15,38 @@ namespace MedLab
     {
         public Laboratorians()
         {
+
             InitializeComponent();
+            ShowLabors();
         }
         SqlConnection Con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=MedLabDBs;Integrated Security=True");
+        private void ShowLabors()
+        {
+            Con.Open();
+            string query = "SELECT * FROM LaboratoriansTbl";
+            SqlDataAdapter adapter = new SqlDataAdapter(query,Con);
+            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            var ds = new DataSet();
+            adapter.Fill(ds);
+            LabDGV.DataSource = ds.Tables[0];
+            LabDGV.ReadOnly = true;
 
+
+            Con.Close();
+            
+
+        }
+
+        private void ResetValues()
+        {
+            LabNameTB.Text = "";
+            LabAddressTB.Text = "";
+            LabPhoneTB.Text = "";
+            LabQualCB.SelectedIndex = -1;
+            LabGenCB.SelectedIndex = -1;
+            
+
+        }
         private void SaveBTN_Click(object sender, EventArgs e)
         {
             if(LabNameTB.Text == "" || LabAddressTB.Text == "" || LabPhoneTB.Text == ""  || LabQualCB.SelectedIndex == -1 || LabGenCB.SelectedIndex == -1)
@@ -39,6 +67,8 @@ namespace MedLab
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Laboratorian saved!");
                     Con.Close();
+                    ShowLabors();
+                    ResetValues();
                 }
                 catch (Exception Ex)
                 {
@@ -46,6 +76,84 @@ namespace MedLab
                 }
             }
 
+        }
+
+        private void EditBTN_Click(object sender, EventArgs e)
+        {
+            if (LabNameTB.Text == "" || LabAddressTB.Text == "" || LabPhoneTB.Text == "" || LabQualCB.SelectedIndex == -1 || LabGenCB.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please choose laboratorian to update!");
+            }
+            else
+            {
+                try
+                {
+                    Con.Open();
+                    SqlCommand cmd = new SqlCommand("UPDATE LaboratoriansTbl SET LabName = @LN,LabGen = @LG,LabAddress = @LA,LabQual = @LQ,LabPhone = @LP,LabDOB = @LD WHERE LabId = @LKey", Con);
+                    cmd.Parameters.AddWithValue("@LN", LabNameTB.Text);
+                    cmd.Parameters.AddWithValue("@LG", LabGenCB.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@LA", LabAddressTB.Text);
+                    cmd.Parameters.AddWithValue("@LQ", LabQualCB.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@LP", LabPhoneTB.Text);
+                    cmd.Parameters.AddWithValue("@LD", LabDOB.Value);
+                    cmd.Parameters.AddWithValue("@LKey", key);
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Laboratorian updated!");
+                    Con.Close();
+                    ShowLabors();
+                    ResetValues();
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                }
+            }
+
+        }
+        int key = 0;
+        private void LabDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            LabNameTB.Text = LabDGV.SelectedRows[0].Cells[1].Value.ToString();
+            LabGenCB.SelectedItem = LabDGV.SelectedRows[0].Cells[2].Value.ToString();
+            LabAddressTB.Text = LabDGV.SelectedRows[0].Cells[3].Value.ToString();
+            LabQualCB.SelectedItem = LabDGV.SelectedRows[0].Cells[4].Value.ToString();
+            LabPhoneTB.Text = LabDGV.SelectedRows[0].Cells[5].Value.ToString();
+            LabDOB.Text = LabDGV.SelectedRows[0].Cells[6].Value.ToString();
+            if(LabNameTB.Text == "")
+            {
+                key = 0;
+            }
+            else
+            {
+                key = Convert.ToInt32(LabDGV.SelectedRows[0].Cells[0].Value.ToString());
+            }
+        }
+
+        private void DelBTN_Click(object sender, EventArgs e)
+        {
+            if (key == 0)
+            {
+                MessageBox.Show("Please choose laboratorian to delete!");
+            }
+            else
+            {
+                try
+                {
+                    Con.Open();
+                    SqlCommand cmd = new SqlCommand("DELETE FROM LaboratoriansTbl WHERE LabId = @LKey", Con);
+                    cmd.Parameters.AddWithValue("@LKey", key);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Laboratorian deleted!");
+                    Con.Close();
+                    ShowLabors();
+                    ResetValues();
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                }
+            }
         }
     }
 }
