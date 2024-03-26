@@ -30,6 +30,7 @@ namespace MedLab
             adapter.Fill(ds);
             LabDGV.DataSource = ds.Tables[0];
             LabDGV.ReadOnly = true;
+   
 
 
             Con.Close();
@@ -44,6 +45,7 @@ namespace MedLab
             LabPhoneTB.Text = "";
             LabQualCB.SelectedIndex = -1;
             LabGenCB.SelectedIndex = -1;
+            key = 0;
             
 
         }
@@ -77,10 +79,10 @@ namespace MedLab
             }
 
         }
-
+        int key = 0;
         private void EditBTN_Click(object sender, EventArgs e)
         {
-            if (LabNameTB.Text == "" || LabAddressTB.Text == "" || LabPhoneTB.Text == "" || LabQualCB.SelectedIndex == -1 || LabGenCB.SelectedIndex == -1)
+            if (key == 0)
             {
                 MessageBox.Show("Please choose laboratorian to update!");
             }
@@ -111,7 +113,6 @@ namespace MedLab
             }
 
         }
-        int key = 0;
         private void LabDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             LabNameTB.Text = LabDGV.SelectedRows[0].Cells[1].Value.ToString();
@@ -155,5 +156,7 @@ namespace MedLab
                 }
             }
         }
+
+        
     }
 }

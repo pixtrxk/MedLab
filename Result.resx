@@ -121,7 +121,7 @@
     <value>17, 16</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="bunifuThinButton24.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="OkBTN.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADcAAAAvCAYAAABHXlKwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAHbSURBVGhD7Zk9S8NQFIb9LcWk2i8tVooggqIoUkTURVxE
@@ -135,7 +135,7 @@
         cLLQzkZbm9s7+FVOOlpOKlpOJg36AhaaH5A8v1cRAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="bunifuThinButton23.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="SaveBTN.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAALAAAAAvCAYAAABDh0DIAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAIxSURBVHhe7d0/a1NRGMdxX0sxqaZptFgpggiKokgpYl3E
@@ -151,7 +151,7 @@
         SUVORK5CYII=
 </value>
   </data>
-  <data name="bunifuThinButton22.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="EditBTN.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAALAAAAAvCAYAAABDh0DIAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAIxSURBVHhe7d0/a1NRGMdxX0sxqaZptFgpggiKokgpYl3E
@@ -167,7 +167,7 @@
         SUVORK5CYII=
 </value>
   </data>
-  <data name="bunifuThinButton21.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="DelBTN.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAALAAAAAvCAYAAABDh0DIAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAIxSURBVHhe7d0/a1NRGMdxX0sxqaZptFgpggiKokgpYl3E

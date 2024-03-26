@@ -43,6 +43,7 @@ namespace MedLab
             PatAddressTB.Text = "";
             PatPhoneTB.Text = "";
             PatGenCB.SelectedIndex = -1;
+            key = 0;
 
 
         }
@@ -117,14 +118,21 @@ namespace MedLab
             }
             else
             {
-                Con.Open();
-                SqlCommand cmd = new SqlCommand("DELETE FROM PatientsTbl WHERE PatId = @PKey", Con);
-                cmd.Parameters.AddWithValue("@PKey", key);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Patient deleted!");
-                Con.Close();
-                ShowPatients();
-                ResetValues();
+                try
+                {
+                    Con.Open();
+                    SqlCommand cmd = new SqlCommand("DELETE FROM PatientsTbl WHERE PatId = @PKey", Con);
+                    cmd.Parameters.AddWithValue("@PKey", key);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Patient deleted!");
+                    Con.Close();
+                    ShowPatients();
+                    ResetValues();
+                }
+                catch(Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                }
 
             }
         }
@@ -145,5 +153,6 @@ namespace MedLab
                 key = Convert.ToInt32(PatDGV.SelectedRows[0].Cells[0].Value.ToString());
             }
         }
+       
     }
 }
