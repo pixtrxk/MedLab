@@ -22,8 +22,6 @@ namespace MedLab
             GetLabor();
             GetTest();
             ShowResults();
-            //ResetValues();
-
         }
 
         SqlConnection Con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=MedLabDBs;Integrated Security=True");
@@ -92,49 +90,66 @@ namespace MedLab
         }
         private void GetPatientName()
         {
-
-
-            using (SqlCommand cmd = new SqlCommand("SELECT PatName FROM PatientsTbl WHERE PatId = @PatId", Con))
+            if(PatIdCB.SelectedValue != null)
             {
-                cmd.Parameters.AddWithValue("@PatId", PatIdCB.SelectedValue.ToString());
-                DataTable dt = new DataTable();
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.Fill(dt);
-                PatNameTB.Text = dt.Rows[0]["PatName"].ToString();
+                using (SqlCommand cmd = new SqlCommand("SELECT PatName FROM PatientsTbl WHERE PatId = @PatId", Con))
+                {
+                    cmd.Parameters.AddWithValue("@PatId", PatIdCB.SelectedValue.ToString());
+                    DataTable dt = new DataTable();
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dt);
+                    PatNameTB.Text = dt.Rows[0]["PatName"].ToString();
+                }
             }
+            else
+            {
+                PatNameTB.Text = "";
+            }         
             
                     
         }
         private void GetLaborName()
         {
-            using (SqlCommand cmd = new SqlCommand("SELECT LabName FROM LaboratoriansTbl WHERE LabId = @LabId", Con))
+            if(LabIdCB.SelectedValue != null)
             {
-                cmd.Parameters.AddWithValue("@LabId", LabIdCB.SelectedValue.ToString());
-                DataTable dt = new DataTable();
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.Fill(dt);
-                LabNameTB.Text = dt.Rows[0]["LabName"].ToString();
-            }                        
+                using (SqlCommand cmd = new SqlCommand("SELECT LabName FROM LaboratoriansTbl WHERE LabId = @LabId", Con))
+                {
+                    cmd.Parameters.AddWithValue("@LabId", LabIdCB.SelectedValue.ToString());
+                    DataTable dt = new DataTable();
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dt);
+                    LabNameTB.Text = dt.Rows[0]["LabName"].ToString();
+                }
+            }
+            else
+            {
+                LabNameTB.Text = "";
+            }
+                                 
         }
         private void GetTestName()
         {
-
-            using (SqlCommand cmd = new SqlCommand("SELECT TestName, TestCost FROM TestsTbl WHERE TestCode = @TestCode", Con))
+            if(TestCodeCB.SelectedValue != null)
             {
-                cmd.Parameters.AddWithValue("@TestCode", TestCodeCB.SelectedValue.ToString());
-                DataTable dt = new DataTable();
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.Fill(dt);
-                TestNameTB.Text = dt.Rows[0]["TestName"].ToString();
-                TestCostTB.Text = dt.Rows[0]["TestCost"].ToString();
+                using (SqlCommand cmd = new SqlCommand("SELECT TestName, TestCost FROM TestsTbl WHERE TestCode = @TestCode", Con))
+                {
+                    cmd.Parameters.AddWithValue("@TestCode", TestCodeCB.SelectedValue.ToString());
+                    DataTable dt = new DataTable();
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dt);
+                    TestNameTB.Text = dt.Rows[0]["TestName"].ToString();
+                    TestCostTB.Text = dt.Rows[0]["TestCost"].ToString();
+                }
             }
-                           
+            else
+            {
+                TestNameTB.Text = "";
+                TestCostTB.Text = "";
+            }
+                                       
         }
       
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         int key = 0;
         private void SaveBTN_Click(object sender, EventArgs e)
@@ -160,7 +175,7 @@ namespace MedLab
                     MessageBox.Show("Result saved!");
                     Con.Close();
                     ShowResults();
-                   // ResetValues();
+                    ResetValues();
                 }
                 catch (Exception Ex)
                 {
@@ -195,7 +210,34 @@ namespace MedLab
                 TestTB.Text = TestNameTB.Text + " : " + ResCB.SelectedItem.ToString();
             }
         }
+                      
+       
+        private void DelBTN_Click(object sender, EventArgs e)
+        {
+            if (key == 0)
+            {
+                MessageBox.Show("Please choose result to delete!");
+            }
+            else
+            {
+                try
+                {
+                    Con.Open();
+                    SqlCommand cmd = new SqlCommand("DELETE FROM ResultsTbl WHERE ResultNum = @RKey", Con);
+                    cmd.Parameters.AddWithValue("@RKey", key);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Result deleted!");
+                    Con.Close();
+                    ShowResults();
+                    ResetValues();
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                }
 
+            }
+        }
         private void ResDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             PatIdCB.SelectedItem = ResDGV.SelectedRows[0].Cells[1].Value.ToString();
@@ -216,31 +258,37 @@ namespace MedLab
             }
         }
 
-        private void DelBTN_Click(object sender, EventArgs e)
+        private void pictureBox6_Click(object sender, EventArgs e)
         {
-            if (key == 0)
-            {
-                MessageBox.Show("Please choose patient to delete!");
-            }
-            else
-            {
-                try
-                {
-                    Con.Open();
-                    SqlCommand cmd = new SqlCommand("DELETE FROM ResultsTbl WHERE ResultNum = @RKey", Con);
-                    cmd.Parameters.AddWithValue("@RKey", key);
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Result deleted!");
-                    Con.Close();
-                    ShowResults();
-                    //ResetValues();
-                }
-                catch(Exception Ex) 
-                {
-                    MessageBox.Show(Ex.Message);
-                }
+            Laboratorians Obj = new Laboratorians();
+            Obj.Show();
+            this.Hide();
+        }
 
-            }
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            Patients Obj = new Patients();
+            Obj.Show();
+            this.Hide();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Tests Obj = new Tests();
+            Obj.Show();
+            this.Hide();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            Login Obj = new Login();
+            Obj.Show();
+            this.Hide();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

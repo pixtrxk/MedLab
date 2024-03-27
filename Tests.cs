@@ -139,5 +139,38 @@ namespace MedLab
                 key = Convert.ToInt32(TestDGV.SelectedRows[0].Cells[0].Value.ToString());
             }
         }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            Laboratorians Obj = new Laboratorians();
+            Obj.Show();
+            this.Hide();
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            Patients Obj = new Patients();
+            Obj.Show();
+            this.Hide();
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            Result Obj = new Result();
+            Obj.Show();
+            this.Hide();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            Login Obj = new Login();
+            Obj.Show();
+            this.Hide();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
