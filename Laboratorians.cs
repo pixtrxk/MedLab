@@ -51,7 +51,7 @@ namespace MedLab
         }
         private void SaveBTN_Click(object sender, EventArgs e)
         {
-            if(LabNameTB.Text == "" || LabAddressTB.Text == "" || LabPhoneTB.Text == ""  || LabQualCB.SelectedIndex == -1 || LabGenCB.SelectedIndex == -1)
+            if(LabNameTB.Text == "" || LabAddressTB.Text == "" || LabPhoneTB.Text == ""  || LabQualCB.SelectedIndex == -1 || LabGenCB.SelectedIndex == -1 || PassTB.Text == "")
             {
                 MessageBox.Show("Missing information");
             } else
@@ -59,13 +59,14 @@ namespace MedLab
                 try
                 {
                     Con.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO LaboratoriansTbl(LabName,LabGen,LabAddress,LabQual,LabPhone,LabDOB) VALUES (@LN,@LG,@LA,@LQ,@LP,@LD)",Con);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO LaboratoriansTbl(LabName,LabGen,LabAddress,LabQual,LabPhone,LabDOB, LabPass) VALUES (@LN,@LG,@LA,@LQ,@LP,@LD,@LPa)",Con);
                     cmd.Parameters.AddWithValue("@LN", LabNameTB.Text);
                     cmd.Parameters.AddWithValue("@LG", LabGenCB.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("@LA", LabAddressTB.Text);
                     cmd.Parameters.AddWithValue("@LQ", LabQualCB.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("@LP", LabPhoneTB.Text);
                     cmd.Parameters.AddWithValue("@LD", LabDOB.Value);
+                    cmd.Parameters.AddWithValue("@LPa", PassTB.Text);
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Laboratorian saved!");
                     Con.Close();
@@ -91,13 +92,14 @@ namespace MedLab
                 try
                 {
                     Con.Open();
-                    SqlCommand cmd = new SqlCommand("UPDATE LaboratoriansTbl SET LabName = @LN,LabGen = @LG,LabAddress = @LA,LabQual = @LQ,LabPhone = @LP,LabDOB = @LD WHERE LabId = @LKey", Con);
+                    SqlCommand cmd = new SqlCommand("UPDATE LaboratoriansTbl SET LabName = @LN,LabGen = @LG,LabAddress = @LA,LabQual = @LQ,LabPhone = @LP,LabDOB = @LD, @LabPass = @LPa WHERE LabId = @LKey", Con);
                     cmd.Parameters.AddWithValue("@LN", LabNameTB.Text);
                     cmd.Parameters.AddWithValue("@LG", LabGenCB.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("@LA", LabAddressTB.Text);
                     cmd.Parameters.AddWithValue("@LQ", LabQualCB.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("@LP", LabPhoneTB.Text);
                     cmd.Parameters.AddWithValue("@LD", LabDOB.Value);
+                    cmd.Parameters.AddWithValue("@LPa", PassTB.Text);
                     cmd.Parameters.AddWithValue("@LKey", key);
 
                     cmd.ExecuteNonQuery();

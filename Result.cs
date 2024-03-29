@@ -288,7 +288,7 @@ namespace MedLab
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            System.Windows.Forms.Application.Exit();
         }
     }
 }
