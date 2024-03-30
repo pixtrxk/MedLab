@@ -20,7 +20,7 @@ namespace MedLab
             ResetValues();
         }
 
-        SqlConnection Con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=MedLabDBs;Integrated Security=True");
+        SqlConnection Con = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["ConnectionString"]);
         private void ShowTests()
         {
             Con.Open();

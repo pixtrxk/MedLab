@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace MedLab
 {
     public partial class Login : Form
@@ -18,7 +19,7 @@ namespace MedLab
             InitializeComponent();
         }
 
-        SqlConnection Con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=MedLabDBs;Integrated Security=True");
+        SqlConnection Con = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["ConnectionString"]);
         private void LoginBTN_Click(object sender, EventArgs e)
         {
             if(UsernameTB.Text == "" || PasswordTB.Text == "")

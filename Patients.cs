@@ -19,7 +19,7 @@ namespace MedLab
             ShowPatients();
         }
 
-        SqlConnection Con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=MedLabDBs;Integrated Security=True");
+        SqlConnection Con = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["ConnectionString"]);
         private void ShowPatients()
         {
             Con.Open();
