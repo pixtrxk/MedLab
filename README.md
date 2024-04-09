@@ -11,7 +11,7 @@ Features:
 - 
 Technologies:
 
-The application is written in C# using the .NET Framework. It utilizes a SQL Server database to store patient data, test results, and laboratory staff information.
+"The application is written in C# using the .NET Framework. The user interface is implemented in Windows Forms technology. ADO.NET is used for communication with a SQL Server database. The application stores patient data, test results, and information about laboratory staff."
 
 Instructions for Running the MedLab Application:
 - Download the Source Files: Clone or download the repository containing the MedLab application source code from GitHub.
